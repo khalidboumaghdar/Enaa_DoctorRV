@@ -1,0 +1,87 @@
+.w-3{
+    width:150px;
+}.color{
+     background-color: #5EA3FA;
+     color: white;
+     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ }.text-decoration{
+      text-decoration: none;
+      color: #000;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }.mr{
+       margin-left: 20px;
+   }.img{
+        width: 112%;
+    }.p-t-5{
+         padding: 8rem !important;
+     }.display{
+          display: none;
+      }#myLinks{
+           display: none;
+       }#myLinks a{
+            display: block;
+            text-decoration: none;
+            padding: 10px;
+            color: black;
+            font-weight: bold;
+        }.myLinks a:hover {
+             background-color: #ddd;
+             color: black;
+         }
+
+@media screen and (max-width:992px) {
+    .w-3{
+        width:150px;
+    }
+    .p-t-5{
+        padding-left: 8rem !important;
+        padding-top: 1rem !important;
+    }.p-t-5 h3{
+         font-size: 40px;
+     }.p-t-5 button{
+          font-size: 30px;
+      }
+    .mr{
+        margin-left: 85px;
+    }.img{
+         width: 105%;
+     }.md{
+          font-size: 20px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      }.mdt{
+           margin-top: 10px;
+       }
+
+}
+@media screen and (max-width:600px) {
+    .md{
+        display: none;
+    }.display{
+         display: block;
+     }.display{
+          padding-top: 10px;
+          font-size: 30px;
+      }.p-t-5 h3{
+           font-size: 30px !important;
+           position: relative;
+           left: -47px;
+       }.p-t-5 button{
+            font-size: 30px;
+        }.p-t-5{
+             padding-left: 0rem !important;
+             padding-top: 0rem !important;
+             padding: 0rem !important;
+         }.p-t-5 button{
+              font-size: 15px;
+          }.sm{
+               margin-left: 80px;
+
+           }.p-t-5 h3{
+                font-size: 15px;
+            }.img{
+                 margin-top: 15px;
+             }.smm{
+                  margin-top: 20px;
+              }
+
+}
