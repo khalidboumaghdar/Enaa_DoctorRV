@@ -1,3 +1,8 @@
+body{
+    overflow-x:hidden ;
+}.heightlogin{
+     height: 68%;
+ }
 .w-3{
     width:150px;
 }.color{
@@ -12,7 +17,11 @@
        margin-left: 20px;
    }.img{
         width: 112%;
-    }.p-t-5{
+    }.po{
+                   position: relative;
+                   left: 38%;
+               }
+.p-t-5{
          padding: 8rem !important;
      }.display{
           display: none;

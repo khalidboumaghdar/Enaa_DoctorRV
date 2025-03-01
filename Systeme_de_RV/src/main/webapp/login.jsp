@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.Model.Doctor" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,7 +17,7 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./css/style.css" />
+    <style><%@include file="css/style.css"%></style>
 </head>
 
 <body>
@@ -23,13 +26,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-3 col-10">
-                    <img class="w-3" src="./assets/imges/logo.png" alt="" />
+                    <img class="w-3" src="https://images2.imgbox.com/fd/fc/Qt6XUmHG_o.png" alt="" />
                 </div>
                 <div class="col-lg-2 col-md-3 p-3 md">
                     <a href="" class="text-decoration ">Medicine</a>
                 </div>
                 <div class="col-lg-2 col-md-3 p-3 md">
-                    <a href="" class="text-decoration">Rendezvous</a>
+                    <a href="Rendezvous" class="text-decoration">Rendezvous</a>
                 </div>
                 <div class="col-lg-2 col-md-3 p-3 md">
                     <a href="" class="btn color">Login</a>
@@ -56,71 +59,37 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-12 p-t-5">
-                    <h3 class="pt-5 sm">Bienvenue sur DoctorRV</h3>
-                    <button class="btn color  mt-4 mr">Prendre rendez-vous</button>
-                </div>
-                <div class="col-lg-6 col-md-12 col-12">
-                    <img class="img" src="./assets/imges/pages2.svg" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 p-4">
-                    <h5>Doctors : </h5>
-                </div>
-                <div class="col-lg-4 col-md-6 mdt">
-                    <div class="card shadow" >
-                        <img src="assets/imges/pages1.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Doctor1</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mdt">
-                    <div class="card shadow" >
-                        <img src="assets/imges/pages1.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Doctor2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mdt">
-                    <div class="card shadow" >
-                        <img src="assets/imges/pages1.svg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">Doctor3</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <form action="insert" method="post">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 p-4">
-                    <h3>Rendez-vous</h3>
-                </div>
 
-                <div class="col-lg-6 col-md-6">  <input type="text" name="nom" class="form-control" placeholder="Nom">
-                </div>
-                <div class="col-lg-6 col-md-6 smm">  <input type="email" name="email" class="form-control"  placeholder="Email">
-                </div>
-                <div class="col-lg-6 col-md-6 pt-4">  <input type="text" name="telephone" class="form-control"  placeholder="Telephone">
-                </div>
-                <div class="col-lg-6 col-md-6 pt-4">  <input type="date" name="date" class="form-control" >
-                </div>
-                <div class="col-lg-6 col-md-6 pt-4">  <input type="text" name="status" class="form-control" placeholder="Status" >
-                </div>
-                <div class="col-lg-6 col-md-6"></div>
-                <div class="col-lg-6 col-md-6 mt-4">
-                    <button type="submit" class="btn color">Envoiyer</button>
-                </div>
+                <div class="col-lg-4 shadow mt-5 heightlogin">
+                    <form action="CheckLogin" method="post">
+                        <h1 class="p-5">login</h1>
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="email" name="email" id="email" class="form-control" />
+                            <label class="form-label" for="email">Email address</label>
+                        </div>
 
+                        <!-- Password input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="password" name="motpass" id="motpass" class="form-control" />
+                            <label class="form-label" for="motpass">Password</label>
+                        </div>
+
+
+                        <button  type="submit"  class="btn btn-primary btn-block mb-4 po ">Sign in</button>
+
+                        <!-- Register buttons -->
+                        <div class="text-center">
+                            <p>Not a member? <a href="Register">Register</a></p>
+
+                        </div>
+                    </form>
             </div>
+                <div class="col-lg-8">
+                    <img src="https://images2.imgbox.com/8e/12/CfcyE8Xa_o.png" class="img heightlogin" alt="" />
+
+                </div>
         </div>
-        </form>
+        </div>
     </section>
 
 </main>
@@ -136,6 +105,19 @@
         </div>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.btn-edit').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('edit-id').value = this.getAttribute('data-id');
+                document.getElementById('edit-nom').value = this.getAttribute('data-nom');
+                document.getElementById('edit-telephone').value = this.getAttribute('data-telephone');
+                document.getElementById('edit-email').value = this.getAttribute('data-email');
+            });
+        });
+    });
+</script>
 <script>
     function myFunction() {
         var x = document.getElementById("myLinks");

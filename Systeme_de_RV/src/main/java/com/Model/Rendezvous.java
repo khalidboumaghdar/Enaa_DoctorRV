@@ -1,15 +1,16 @@
 package com.Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Rendezvous {
     private int id;
     private Date date;
     private String status;
-    Doctor doctor;
+    int doctor;
     Patients patient;
 
-    public Rendezvous(int id, Date date, String status, Doctor doctor, Patients patient) {
+
+    public Rendezvous(int id, Date date, String status, int doctor, Patients patient) {
         this.id = id;
         this.date = date;
         this.status = status;
@@ -17,7 +18,7 @@ public class Rendezvous {
         this.patient = patient;
     }
 
-    public Rendezvous(Date date, String status, Doctor doctor, Patients patient) {
+    public Rendezvous(Date date, String status, int doctor, Patients patient) {
         this.date = date;
         this.status = status;
         this.doctor = doctor;
@@ -48,11 +49,11 @@ public class Rendezvous {
         this.status = status;
     }
 
-    public Doctor getDoctor() {
+    public int getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(int doctor) {
         this.doctor = doctor;
     }
 
