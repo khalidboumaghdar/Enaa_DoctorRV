@@ -24,6 +24,10 @@ public class Login {
         this.role = role;
     }
 
+    public Login() {
+
+    }
+
     public String getRole() {
         return role;
     }

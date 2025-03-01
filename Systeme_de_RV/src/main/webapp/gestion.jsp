@@ -1,10 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.Model.Doctor" %>
+<%@ page import="com.Model.Login" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
     HttpSession sessionObj = request.getSession(false);
-    String userName = (sessionObj != null) ? (String) sessionObj.getAttribute("user") : null;
+    Login user = (sessionObj != null) ? (Login) sessionObj.getAttribute("user") : null;
 %>
 <!doctype html>
 <html lang="en">
@@ -26,8 +27,7 @@
                     <img class="w-3" src="https://images2.imgbox.com/fd/fc/Qt6XUmHG_o.png" alt="" />
                 </div>
                 <div class="col-lg-2 col-md-3 p-3 md">
-                    <% if (userName == null) { %>
-                    <a href="#Medcine" class="text-decoration">Medicine</a>
+                    <% if (user != null && "Patient".equals(user.getRole())) { %>                    <a href="#Medcine" class="text-decoration">Medicine</a>
                     <% } else { %>
                     <a href="Medcine" class="text-decoration">Medicine</a>
                     <% } %>
@@ -35,13 +35,13 @@
                 <div class="col-lg-2 col-md-3 p-3 md">
                     <a href="Rendezvous" class="text-decoration">Rendezvous</a>
                 </div>
-                <% if (userName == null) { %>
+                <% if (user == null) { %>
                 <div class="col-lg-2 col-md-3 p-3 md">
                     <a href="login" class="btn color">Login</a>
                 </div>
                 <% } else { %>
                 <div class="col-lg-2 col-md-3 p-3 md">
-                    <p>Bienvenue, <%= userName %></p>
+                    <p>Bienvenue, <%= user.getNom() %></p>
                     <a href="logout.jsp" class="btn btn-danger">Logout</a>
                 </div>
                 <% } %>

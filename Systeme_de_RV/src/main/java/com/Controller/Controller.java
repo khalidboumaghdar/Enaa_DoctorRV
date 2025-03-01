@@ -176,18 +176,18 @@ public class Controller extends HttpServlet {
         String motpass = request.getParameter("motpass");
 
         Login login = new Login(email, motpass);
-        String nom = dao.checkLogin(login);
+        Login loggedInUser = dao.checkLogin(login); // Get full Login object
 
-        if (nom != null) {
-            // Store user session
+        if (loggedInUser != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", nom);
+            session.setAttribute("user", loggedInUser); // Store full object
 
             response.sendRedirect("./");
         } else {
             response.sendRedirect("./Register");
         }
     }
+
 
     private void login(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
@@ -224,16 +224,22 @@ public class Controller extends HttpServlet {
     }
     private void listRoundivous(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-       List<Rendezvous> listerendivous=dao.selectAllRendezvous();
-        List<Doctor> listDoctors=dao.selectAllDoctors();
-        request.setAttribute("listDoctors", listDoctors);
-       request.setAttribute("listerendivous", listerendivous);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("rendivous.jsp");
+        Login user = (Login) request.getSession().getAttribute("user");
+        if (user != null) {
+            List<Rendezvous> rendezvousList = dao.selectRendezvousByPatient(user.getEmail());
+            request.setAttribute("rendezvous", rendezvousList);
 
-        dispatcher.forward(request, response);
+            List<Doctor> listDoctors = dao.selectAllDoctors();
+            request.setAttribute("listDoctors", listDoctors);
 
-
+            RequestDispatcher dispatcher = request.getRequestDispatcher("rendivous.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            dispatcher.forward(request, response);
+        }
     }
+
 
 
 }

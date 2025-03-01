@@ -26,7 +26,7 @@ public class DAO {
                     "JOIN Patients p ON r.id_patient = p.id " +
                     "SET r.datet = ?, r.status = ?, p.nom = ?, p.telephone = ? " +
                     "WHERE r.id = ?";
-    private static final String SELECT_LOGIN = "SELECT nom,role FROM login WHERE email = ? AND password = ?";
+    private static final String SELECT_LOGIN = "SELECT nom,email,password,role FROM login WHERE email = ? AND password = ?";
 
 
 
@@ -140,7 +140,9 @@ public class DAO {
             System.err.println("Error inserting patient: " + e.getMessage());
         }
     }
-    public String checkLogin(Login login) {
+    public Login checkLogin(Login login) {
+        Login loggedInUser = null;
+
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LOGIN)) {
 
@@ -149,15 +151,21 @@ public class DAO {
 
             try (ResultSet rs = preparedStatement.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("nom");
-                    
+                    loggedInUser = new Login();
+
+                    loggedInUser.setNom(rs.getString("nom"));
+                    loggedInUser.setEmail(rs.getString("email"));
+                    loggedInUser.setPassword(rs.getString("password"));
+                    loggedInUser.setRole(rs.getString("role"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return loggedInUser;
     }
+
 
     public Patients getPatientByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM Patients WHERE email = ?";
@@ -235,31 +243,34 @@ public class DAO {
 
 
 
-    public List<Rendezvous> selectAllRendezvous() {
-        List<Rendezvous> rendezvous = new ArrayList<>();
+    public List<Rendezvous> selectRendezvousByPatient(String email) {
+        List<Rendezvous> rendezvousList = new ArrayList<>();
+        String sql = "SELECT r.id, r.datet, r.status, r.id_medecin, p.email " +
+                "FROM RendezVous r " +
+                "JOIN Patients p ON r.id_patient = p.id " +
+                "WHERE p.email = ?";
+
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_RendezVous);
-             ResultSet rs = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, email);
+            ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String datet = rs.getString("datet");
-                Date dt = Date.valueOf(datet);
-                String staus = rs.getString("status");
+                Date dt = rs.getDate("datet");
+                String status = rs.getString("status");
                 int id_medecin = rs.getInt("id_medecin");
 
-                String email = rs.getString("email");
-                System.out.println("Fetched Email: " + email);
-
                 Patients patient = getPatientByEmail(email);
-                rendezvous.add(new Rendezvous(id, dt, staus, id_medecin, patient));
+                rendezvousList.add(new Rendezvous(id, dt, status, id_medecin, patient));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println( rendezvous);
-
-        return rendezvous;
+        return rendezvousList;
     }
+
 
 
 
